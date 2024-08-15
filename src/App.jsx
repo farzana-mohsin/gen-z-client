@@ -1,7 +1,10 @@
+import Navbar from "./Components/Navbar";
+
 function App() {
   return (
     <>
-      <h1 className='text-3xl text-red-500'>Vite + React</h1>
+      <Navbar></Navbar>
+      <h1 className='text-3xl text-red-500'>Cards</h1>
     </>
   );
 }
