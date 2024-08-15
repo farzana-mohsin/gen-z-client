@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Providers/AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Helmet } from "react-helmet-async";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 // import { MdRemoveRedEye } from "react-icons/md";
@@ -59,9 +58,6 @@ const Register = () => {
 
   return (
     <div className='mb-10 lg:mb-2'>
-      <Helmet>
-        <title>Remax Realty | Register</title>
-      </Helmet>
       {/* <div className='hero min-h-screen bg-base-200'>
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
