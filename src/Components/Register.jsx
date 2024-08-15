@@ -9,8 +9,8 @@ import { FaEye } from "react-icons/fa";
 // import { PiEyeFill } from "react-icons/pi";
 
 const Register = () => {
-  const [setRegisterError] = useState("");
-  const [setRegisterSuccess] = useState("");
+  const [, setRegisterError] = useState("");
+  const [, setRegisterSuccess] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
 
