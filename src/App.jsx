@@ -1,10 +1,22 @@
+import { useLoaderData } from "react-router-dom";
 import Navbar from "./Components/Navbar";
+import { useState } from "react";
+import SingleProduct from "./Components/SingleProduct";
 
 function App() {
+  const loader = useLoaderData();
+  const [allProducts] = useState(loader);
   return (
     <>
       <Navbar></Navbar>
-      <h1 className='text-3xl text-red-500'>Cards</h1>
+      <div>
+        {allProducts.map((item, index) => (
+          <SingleProduct
+            key={index}
+            item={item}
+          ></SingleProduct>
+        ))}
+      </div>
     </>
   );
 }
