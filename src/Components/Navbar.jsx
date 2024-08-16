@@ -27,14 +27,14 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to='/special-deals'
+              to='/about'
               className={({ isActive }) =>
                 isActive
                   ? "text-white bg-emerald-400 p-3 hover:bg-yellow-400 "
                   : "text-white bg-black p-3 hover:bg-yellow-400"
               }
             >
-              What&apos;s Special
+              About Us
             </NavLink>
           </li>
         </>
