@@ -64,6 +64,12 @@ function App() {
     console.log(category);
     setCategory(category);
   };
+  // brand name
+  const [brand, setBrand] = useState("");
+  const handleBrandChange = (brand) => {
+    console.log(brand);
+    setBrand(brand);
+  };
 
   const handleFilter = () => {
     fetch(`${import.meta.env.VITE_API_URL}/filter-products`, {
@@ -75,6 +81,7 @@ function App() {
         category,
         minPrice: values[0],
         maxPrice: values[1],
+        brandName: brand,
       }),
     })
       .then((res) => res.json())
@@ -176,47 +183,7 @@ function App() {
               </div>
             </div>
           </div>
-          {/* <form
-            onSubmit={""}
-            className='flex my-10'
-          >
-            <div className='join'>
-              <input
-                className='input input-bordered join-item rounded-l-xl border text-sm border-[#6faf9f]'
-                name='input'
-                placeholder='Search here'
-              />
-              <button
-                type='submit'
-                className='btn join-item rounded-r-xl bg-[#6faf9f] text-white  border text-sm hover:bg-[#727C82] border-[#f77d5c]'
-              >
-                Max Price
-              </button>
-            </div>
-          </form> */}
-          {/* <div className='dropdown'>
-            <div
-              tabIndex={0}
-              role='button'
-              className='btn m-1 px-20'
-            >
-              Brand Name
-            </div>
-            <ul
-              tabIndex={0}
-              className='dropdown-content menu bg-base-100 rounded-box z-[1] w-44 p-2 shadow'
-            >
-              <li>
-                <a>Adidas</a>
-              </li>
-              <li>
-                <a>Nike</a>
-              </li>
-              <li>
-                <a>Puma</a>
-              </li>
-            </ul>
-          </div> */}
+
           <div className='dropdown'>
             <div
               tabIndex={0}
@@ -242,6 +209,30 @@ function App() {
               </li>
             </ul>
           </div>
+          <div className='dropdown'>
+            <div
+              tabIndex={0}
+              role='button'
+              className='btn m-1 px-20'
+            >
+              Brand Name
+            </div>
+            <ul
+              tabIndex={0}
+              className='dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow'
+            >
+              <li>
+                <a onClick={() => handleBrandChange("Adidas")}>Adidas</a>
+              </li>
+              <li>
+                <a onClick={() => handleBrandChange("Nike")}>Nike</a>
+              </li>
+              <li>
+                <a onClick={() => handleBrandChange("Puma")}>Puma</a>
+              </li>
+            </ul>
+          </div>
+
           <button
             onClick={handleFilter}
             type='submit'
