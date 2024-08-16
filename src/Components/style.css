@@ -1,6 +1,6 @@
 /* Styles for the slider component */
 .slider {
-  height: 10px;
+  height: 18px;
   width: 100%;
   background-color: #ddd;
   border-radius: 5px;
@@ -11,8 +11,8 @@
 .slider .thumb {
   height: 20px;
   width: 20px;
-  border-radius: 50%;
-  background-color: #007bff;
+  border-radius: 70%;
+  background-color: #3cc697;
   cursor: grab;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }

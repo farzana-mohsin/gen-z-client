@@ -119,48 +119,162 @@ function App() {
     <>
       <Navbar></Navbar>
       <div className='container mx-auto'>
-        <div className='flex items-center justify-center'>
-          <div className='dropdown'>
-            <div
-              tabIndex={0}
-              role='button'
-              className='btn m-1 px-20'
+        <div className='flex justify-between'>
+          <div>
+            <form
+              onSubmit={handleSearch}
+              className='flex my-10'
             >
-              Sort
-            </div>
-            <ul
-              tabIndex={0}
-              className='dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow'
-            >
-              <li>
-                <a onClick={handleAscendPrice}>Price: Low to High</a>
-              </li>
-              <li>
-                <a onClick={handleDescendPrice}>Price: High to Low</a>
-              </li>
-              <li>
-                <a onClick={handleDateAdded}>Date Added: Newest first</a>
-              </li>
-            </ul>
-          </div>
-          <form
-            onSubmit={handleSearch}
-            className='flex my-10'
-          >
-            <div className='join'>
-              <input
-                className='input input-bordered join-item rounded-l-xl border text-sm border-[#6faf9f]'
-                name='input'
-                placeholder='Search here'
-              />
-              <button
-                type='submit'
-                className='btn join-item rounded-r-xl bg-[#6faf9f] text-white  border text-sm hover:bg-[#727C82] border-[#f77d5c]'
+              <div className='join'>
+                <input
+                  className='input input-bordered join-item rounded-l-xl border text-sm border-emerald-400'
+                  name='input'
+                  placeholder='Search by Product Name'
+                />
+                <button
+                  type='submit'
+                  className='btn join-item rounded-r-xl bg-emerald-400 text-white border text-sm hover:bg-yellow-400'
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+            <div className='dropdown'>
+              <div
+                tabIndex={0}
+                role='button'
+                className='btn m-1 px-20 bg-emerald-400 hover:bg-yellow-400 text-white'
               >
-                Search
-              </button>
+                Sort
+              </div>
+              <ul
+                tabIndex={0}
+                className='dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow '
+              >
+                <li>
+                  <a onClick={handleAscendPrice}>Price: Low to High</a>
+                </li>
+                <li>
+                  <a onClick={handleDescendPrice}>Price: High to Low</a>
+                </li>
+                <li>
+                  <a onClick={handleDateAdded}>Date Added: Newest first</a>
+                </li>
+              </ul>
             </div>
-          </form>
+          </div>
+          <div className='w-1/4'>
+            <div
+              style={{
+                padding: "10px",
+              }}
+            >
+              <h2>Price Range</h2>
+
+              <Slider
+                className='slider'
+                value={values}
+                onChange={handlePriceChange}
+                min={0}
+                max={200}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                }}
+              >
+                <div>
+                  <label htmlFor='minPrice'>Min Price:</label>
+                  <input
+                    type='number'
+                    id='minPrice'
+                    name='minPrice'
+                    value={values[0]}
+                    onChange={(e) =>
+                      handlePriceChange([+e.target.value, values[1]])
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor='maxPrice'>Max Price:</label>
+                  <input
+                    type='number'
+                    id='maxPrice'
+                    name='maxPrice'
+                    value={values[1]}
+                    onChange={(e) =>
+                      handlePriceChange([values[0], +e.target.value])
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className='flex'>
+              <div className='dropdown'>
+                <div
+                  tabIndex={0}
+                  role='button'
+                  className='btn m-1 lg:px-14'
+                >
+                  Category
+                </div>
+                <ul
+                  tabIndex={0}
+                  className='dropdown-content menu bg-base-100 rounded-box z-[1] w-full p-2 shadow'
+                >
+                  <li>
+                    <a onClick={() => handleCategoryChange("classic")}>
+                      Classic
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={() => handleCategoryChange("lifestyle")}>
+                      Lifestyle
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={() => handleCategoryChange("running")}>
+                      Running
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className='dropdown'>
+                <div
+                  tabIndex={0}
+                  role='button'
+                  className='btn m-1 lg:px-14'
+                >
+                  Brand Name
+                </div>
+                <ul
+                  tabIndex={0}
+                  className='dropdown-content menu bg-base-100 rounded-box z-[1] w-full p-2 shadow'
+                >
+                  <li>
+                    <a onClick={() => handleBrandChange("Adidas")}>Adidas</a>
+                  </li>
+                  <li>
+                    <a onClick={() => handleBrandChange("Nike")}>Nike</a>
+                  </li>
+                  <li>
+                    <a onClick={() => handleBrandChange("Puma")}>Puma</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <button
+              onClick={handleFilter}
+              type='submit'
+              className='btn join-item rounded-xl bg-emerald-400 text-white  border text-sm hover:bg-yellow-400 w-full'
+            >
+              Filter
+            </button>
+          </div>
         </div>
 
         {/* <form onSubmit={handleFilter}>
@@ -240,111 +354,6 @@ function App() {
             />
           </div>
         </form> */}
-
-        <div className='w-1/4 ml-auto'>
-          <div
-            style={{
-              padding: "10px",
-              border: "1px solid #ddd",
-              borderRadius: "5px",
-              boxShadow: "0 0 5px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <h2>Price Range</h2>
-
-            <Slider
-              className='slider'
-              value={values}
-              onChange={handlePriceChange}
-              min={0}
-              max={200}
-            />
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div>
-                <label htmlFor='minPrice'>Min Price:</label>
-                <input
-                  type='number'
-                  id='minPrice'
-                  name='minPrice'
-                  value={values[0]}
-                  onChange={(e) =>
-                    handlePriceChange([+e.target.value, values[1]])
-                  }
-                />
-              </div>
-              <div>
-                <label htmlFor='maxPrice'>Max Price:</label>
-                <input
-                  type='number'
-                  id='maxPrice'
-                  name='maxPrice'
-                  value={values[1]}
-                  onChange={(e) =>
-                    handlePriceChange([values[0], +e.target.value])
-                  }
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className='dropdown'>
-            <div
-              tabIndex={0}
-              role='button'
-              className='btn m-1 px-20'
-            >
-              Category
-            </div>
-            <ul
-              tabIndex={0}
-              className='dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow'
-            >
-              <li>
-                <a onClick={() => handleCategoryChange("classic")}>Classic</a>
-              </li>
-              <li>
-                <a onClick={() => handleCategoryChange("lifestyle")}>
-                  Lifestyle
-                </a>
-              </li>
-              <li>
-                <a onClick={() => handleCategoryChange("running")}>Running</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className='dropdown'>
-            <div
-              tabIndex={0}
-              role='button'
-              className='btn m-1 px-20'
-            >
-              Brand Name
-            </div>
-            <ul
-              tabIndex={0}
-              className='dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow'
-            >
-              <li>
-                <a onClick={() => handleBrandChange("Adidas")}>Adidas</a>
-              </li>
-              <li>
-                <a onClick={() => handleBrandChange("Nike")}>Nike</a>
-              </li>
-              <li>
-                <a onClick={() => handleBrandChange("Puma")}>Puma</a>
-              </li>
-            </ul>
-          </div>
-
-          <button
-            onClick={handleFilter}
-            type='submit'
-            className='btn join-item rounded-r-xl bg-[#6faf9f] text-white  border text-sm hover:bg-[#727C82] border-[#f77d5c]'
-          >
-            Filter
-          </button>
-        </div>
 
         <div className=' my-20 grid grid-cols-1 lg:grid-cols-3 gap-12'>
           {allProducts.map((item, index) => (
