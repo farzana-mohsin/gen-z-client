@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
-import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { GiRunningShoe } from "react-icons/gi";
 // import "animate.css";
 
 // import { Link } from "react-router-dom";
@@ -11,19 +11,31 @@ const Navbar = () => {
 
   const navLinks = (
     <>
-      <li>
-        <NavLink to='/'>Home</NavLink>
-      </li>
       {user && (
         <>
-          <li>
-            <NavLink to='/special-deals'>What&apos;s Special</NavLink>
+          <li className='mr-2'>
+            <NavLink
+              to='/'
+              className={({ isActive }) =>
+                isActive
+                  ? "text-white bg-emerald-400 p-3 hover:bg-yellow-400"
+                  : " "
+              }
+            >
+              Home
+            </NavLink>
           </li>
-          {/* <li>
-            <NavLink to='/user-profile'>User Profile</NavLink>
-          </li> */}
           <li>
-            <NavLink to='/update-profile'>Update Profile</NavLink>
+            <NavLink
+              to='/special-deals'
+              className={({ isActive }) =>
+                isActive
+                  ? "text-white bg-emerald-400 p-3 hover:bg-yellow-400 "
+                  : "text-white bg-black p-3 hover:bg-yellow-400"
+              }
+            >
+              What&apos;s Special
+            </NavLink>
           </li>
         </>
       )}
@@ -42,7 +54,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className='navbar bg-base-100 my-4 container mx-auto'>
+      <div className='navbar bg-base-100 my-4  container mx-auto'>
         <div className='navbar-start'>
           <div className='dropdown'>
             <div
@@ -72,11 +84,11 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <div className='flex items-center justify-center w-12 h-12 rounded-full bg-emerald-400 text-xl text-white font-bold'>
-            <MdOutlineRealEstateAgent />
+          <div className='flex items-center justify-center w-12 h-12 rounded-full bg-emerald-400 text-4xl text-white font-bold'>
+            <GiRunningShoe />
           </div>
           <h1 className='animate__animated animate__fadeInLeft text-2xl md:text-3xl font-bold text-emerald-500 pl-1'>
-            Remax Realty
+            Gen-Z
           </h1>
         </div>
         <div className='navbar-center hidden lg:flex'>
@@ -126,12 +138,12 @@ const Navbar = () => {
           ) : (
             <div className='flex flex-row'>
               <Link to='/login'>
-                <button className='btn  bg-orange-800 text-white md:px-4 md:py-2 border text-sm rounded-xl md:ml-2 hover:bg-yellow-400'>
+                <button className='btn  bg-emerald-400 text-white md:px-4 md:py-2 border text-sm rounded-xl md:ml-2 hover:bg-yellow-400'>
                   Login
                 </button>
               </Link>
               <Link to='/register'>
-                <button className='btn  bg-orange-800 text-white md:px-4 md:py-2 border text-sm rounded-xl ml-2  hover:bg-yellow-400'>
+                <button className='btn  bg-emerald-400 text-white md:px-4 md:py-2 border text-sm rounded-xl ml-2  hover:bg-yellow-400'>
                   Register
                 </button>
               </Link>
