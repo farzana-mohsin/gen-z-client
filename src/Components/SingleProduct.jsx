@@ -1,5 +1,12 @@
 const SingleProduct = ({ item }) => {
-  const { productName, brandName, category, price, description } = item;
+  const {
+    productName,
+    brandName,
+    category,
+    price,
+    description,
+    productCreationDate,
+  } = item;
 
   return (
     <div className=''>
@@ -19,6 +26,7 @@ const SingleProduct = ({ item }) => {
           <div className='card-actions justify-end'>
             <div className='badge badge-outline'>{brandName}</div>
             <div className='badge badge-outline'>{category}</div>
+            <div className='badge badge-outline'>{productCreationDate}</div>
           </div>
         </div>
       </div>

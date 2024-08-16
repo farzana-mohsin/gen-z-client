@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Navbar from "./Components/Navbar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SingleProduct from "./Components/SingleProduct";
 
 function App() {
@@ -27,8 +27,22 @@ function App() {
       });
   };
 
+  const handleAscendPrice = () => {
+    fetch(`${import.meta.env.VITE_API_URL}/products-by-price-ascend`, {
+      // credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => setAllProducts(data));
+  };
   const handleDescendPrice = () => {
     fetch(`${import.meta.env.VITE_API_URL}/products-by-price-descend`, {
+      // credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => setAllProducts(data));
+  };
+  const handleDateAdded = () => {
+    fetch(`${import.meta.env.VITE_API_URL}/products-by-date-added`, {
       // credentials: "include",
     })
       .then((res) => res.json())
@@ -53,13 +67,13 @@ function App() {
               className='dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow'
             >
               <li>
-                <a>Price: Low to High:</a>
+                <a onClick={handleAscendPrice}>Price: Low to High</a>
               </li>
               <li>
                 <a onClick={handleDescendPrice}>Price: High to Low</a>
               </li>
               <li>
-                <a>Date Added (Newest first)</a>
+                <a onClick={handleDateAdded}>Date Added: Newest first</a>
               </li>
             </ul>
           </div>
