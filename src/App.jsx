@@ -64,7 +64,7 @@ function App() {
     console.log(category);
     setCategory(category);
   };
-  // brand name
+  //  brand name
   const [brand, setBrand] = useState("");
   const handleBrandChange = (brand) => {
     console.log(brand);
@@ -90,12 +90,35 @@ function App() {
       });
   };
 
+  // const handleFilter = (event) => {
+  //   event.preventDefault();
+  //   const form = event.target;
+  //   const category = form.category.value;
+  //   const minPrice = form.minPrice.value;
+  //   const maxPrice = form.maxPrice.value;
+  //   console.log(category);
+  //   const data = {
+  //     category,
+  //     minPrice,
+  //     maxPrice,
+  //   };
+  //   fetch(`${import.meta.env.VITE_API_URL}/filter-products`, {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setAllProducts(data);
+  //     });
+  // };
+
   return (
     <>
       <Navbar></Navbar>
       <div className='container mx-auto'>
-        <h1>category: {category}</h1>
-        <h1>Price: {values}</h1>
         <div className='flex items-center justify-center'>
           <div className='dropdown'>
             <div
@@ -140,6 +163,84 @@ function App() {
           </form>
         </div>
 
+        {/* <form onSubmit={handleFilter}>
+          <div className='w-1/4 ml-auto'>
+            <div
+              style={{
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "5px",
+                boxShadow: "0 0 5px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <h2>Price Range</h2>
+
+              <Slider
+                className='slider'
+                value={values}
+                onChange={handlePriceChange}
+                min={0}
+                max={200}
+              />
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>
+                  <label htmlFor='minPrice'>Min Price:</label>
+                  <input
+                    type='number'
+                    id='minPrice'
+                    name='minPrice'
+                    value={values[0]}
+                    onChange={(e) =>
+                      handlePriceChange([+e.target.value, values[1]])
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor='maxPrice'>Max Price:</label>
+                  <input
+                    type='number'
+                    id='maxPrice'
+                    name='maxPrice'
+                    value={values[1]}
+                    onChange={(e) =>
+                      handlePriceChange([values[0], +e.target.value])
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className='flex flex-col gap-2 '>
+              <label
+                className='text-white '
+                htmlFor='category'
+              >
+                Category
+              </label>
+              <select
+                className='border p-2 rounded-md'
+                name='category'
+              >
+                <option
+                  disabled
+                  selected
+                >
+                  Pick one category
+                </option>
+                <option>Classic</option>
+                <option>Lifestyle</option>
+                <option>Running</option>
+              </select>
+            </div>
+
+            <input
+              type='submit'
+              className='btn-block px-8 py-3 font-semibold bg-opacity-80 border-white btn bg-[#ff9954] text-white lg:px-4 lg:py-2 border-2 text-sm rounded-xl hover:bg-[#727C82]'
+              value='Filter'
+            />
+          </div>
+        </form> */}
+
         <div className='w-1/4 ml-auto'>
           <div
             style={{
@@ -150,7 +251,7 @@ function App() {
             }}
           >
             <h2>Price Range</h2>
-            {/* <p>Use the slider to select a price range:</p> */}
+
             <Slider
               className='slider'
               value={values}
@@ -164,6 +265,7 @@ function App() {
                 <input
                   type='number'
                   id='minPrice'
+                  name='minPrice'
                   value={values[0]}
                   onChange={(e) =>
                     handlePriceChange([+e.target.value, values[1]])
@@ -175,6 +277,7 @@ function App() {
                 <input
                   type='number'
                   id='maxPrice'
+                  name='maxPrice'
                   value={values[1]}
                   onChange={(e) =>
                     handlePriceChange([values[0], +e.target.value])
@@ -205,10 +308,11 @@ function App() {
                 </a>
               </li>
               <li>
-                <a onClick={() => handleCategoryChange("walking")}>Walking</a>
+                <a onClick={() => handleCategoryChange("running")}>Running</a>
               </li>
             </ul>
           </div>
+
           <div className='dropdown'>
             <div
               tabIndex={0}
@@ -241,6 +345,7 @@ function App() {
             Filter
           </button>
         </div>
+
         <div className=' my-20 grid grid-cols-1 lg:grid-cols-3 gap-12'>
           {allProducts.map((item, index) => (
             <SingleProduct
