@@ -2,11 +2,14 @@ import { useLoaderData } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import { useState } from "react";
 import SingleProduct from "./Components/SingleProduct";
+import Slider from "react-slider";
+import "./Components/style.css";
 
 function App() {
   const loader = useLoaderData();
   const [allProducts, setAllProducts] = useState(loader);
 
+  // handle search and sort
   // search
   const handleSearch = (e) => {
     e.preventDefault();
@@ -49,10 +52,43 @@ function App() {
       .then((data) => setAllProducts(data));
   };
 
+  // handle filter
+  // price range
+  const [values, setValues] = useState([0, 200]);
+  console.log(values);
+  const handlePriceChange = (newValues) => setValues(newValues);
+
+  // category
+  const [category, setCategory] = useState("");
+  const handleCategoryChange = (category) => {
+    console.log(category);
+    setCategory(category);
+  };
+
+  const handleFilter = () => {
+    fetch(`${import.meta.env.VITE_API_URL}/filter-products`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        category,
+        minPrice: values[0],
+        maxPrice: values[1],
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setAllProducts(data);
+      });
+  };
+
   return (
     <>
       <Navbar></Navbar>
       <div className='container mx-auto'>
+        <h1>category: {category}</h1>
+        <h1>Price: {values}</h1>
         <div className='flex items-center justify-center'>
           <div className='dropdown'>
             <div
@@ -97,26 +133,50 @@ function App() {
           </form>
         </div>
 
-        <div className='flex justify-center items-center'>
-          <form
-            onSubmit={""}
-            className='flex my-10'
+        <div className='w-1/4 ml-auto'>
+          <div
+            style={{
+              padding: "10px",
+              border: "1px solid #ddd",
+              borderRadius: "5px",
+              boxShadow: "0 0 5px rgba(0, 0, 0, 0.1)",
+            }}
           >
-            <div className='join'>
-              <input
-                className='input input-bordered join-item rounded-l-xl border text-sm border-[#6faf9f]'
-                name='input'
-                placeholder='Search here'
-              />
-              <button
-                type='submit'
-                className='btn join-item rounded-r-xl bg-[#6faf9f] text-white  border text-sm hover:bg-[#727C82] border-[#f77d5c]'
-              >
-                Min Price
-              </button>
+            <h2>Price Range</h2>
+            {/* <p>Use the slider to select a price range:</p> */}
+            <Slider
+              className='slider'
+              value={values}
+              onChange={handlePriceChange}
+              min={0}
+              max={200}
+            />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div>
+                <label htmlFor='minPrice'>Min Price:</label>
+                <input
+                  type='number'
+                  id='minPrice'
+                  value={values[0]}
+                  onChange={(e) =>
+                    handlePriceChange([+e.target.value, values[1]])
+                  }
+                />
+              </div>
+              <div>
+                <label htmlFor='maxPrice'>Max Price:</label>
+                <input
+                  type='number'
+                  id='maxPrice'
+                  value={values[1]}
+                  onChange={(e) =>
+                    handlePriceChange([values[0], +e.target.value])
+                  }
+                />
+              </div>
             </div>
-          </form>
-          <form
+          </div>
+          {/* <form
             onSubmit={""}
             className='flex my-10'
           >
@@ -133,8 +193,8 @@ function App() {
                 Max Price
               </button>
             </div>
-          </form>
-          <div className='dropdown'>
+          </form> */}
+          {/* <div className='dropdown'>
             <div
               tabIndex={0}
               role='button'
@@ -156,7 +216,7 @@ function App() {
                 <a>Puma</a>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className='dropdown'>
             <div
               tabIndex={0}
@@ -167,19 +227,28 @@ function App() {
             </div>
             <ul
               tabIndex={0}
-              className='dropdown-content menu bg-base-100 rounded-box z-[1] w-44 p-2 shadow'
+              className='dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow'
             >
               <li>
-                <a>Classic</a>
+                <a onClick={() => handleCategoryChange("classic")}>Classic</a>
               </li>
               <li>
-                <a>Lifestyle</a>
+                <a onClick={() => handleCategoryChange("lifestyle")}>
+                  Lifestyle
+                </a>
               </li>
               <li>
-                <a>Running</a>
+                <a onClick={() => handleCategoryChange("walking")}>Walking</a>
               </li>
             </ul>
           </div>
+          <button
+            onClick={handleFilter}
+            type='submit'
+            className='btn join-item rounded-r-xl bg-[#6faf9f] text-white  border text-sm hover:bg-[#727C82] border-[#f77d5c]'
+          >
+            Filter
+          </button>
         </div>
         <div className=' my-20 grid grid-cols-1 lg:grid-cols-3 gap-12'>
           {allProducts.map((item, index) => (
