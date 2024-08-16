@@ -3,11 +3,16 @@ import App from "../App";
 import About from "../Components/About";
 import Register from "../Components/Register";
 import Login from "../Components/Login";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: (
+      <PrivateRoutes>
+        <App></App>
+      </PrivateRoutes>
+    ),
     loader: () => fetch(`${import.meta.env.VITE_API_URL}/products`),
   },
   {
