@@ -4,6 +4,7 @@ import { useState } from "react";
 import SingleProduct from "./Components/SingleProduct";
 import Slider from "react-slider";
 import "./Components/style.css";
+import Footer from "./Components/Footer";
 
 function App() {
   const loader = useLoaderData();
@@ -364,6 +365,7 @@ function App() {
           ))}
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }
